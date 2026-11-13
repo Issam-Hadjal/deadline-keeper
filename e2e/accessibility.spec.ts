@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 // Every page of the site, checked by axe against WCAG 2.1 A and AA. A new route
 // is added to this list in the pull request that creates it.
-const pages = ["/"];
+const pages = ["/", "/deadlines"];
 
 for (const path of pages) {
   test(`${path} has no accessibility violation`, async ({ page }) => {
