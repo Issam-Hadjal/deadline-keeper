@@ -8,4 +8,10 @@ describe("Home", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading.textContent).toBe("Deadline Keeper");
   });
+
+  it("leads to the deadlines page", () => {
+    render(<Home />);
+    const link = screen.getByRole("link", { name: "Mes échéances" });
+    expect(link.getAttribute("href")).toBe("/deadlines");
+  });
 });
