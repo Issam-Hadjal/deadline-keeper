@@ -6,6 +6,6 @@ describe("Home", () => {
   it("shows the project title as the page heading", () => {
     render(<Home />);
     const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading.textContent).toBe("Modèle Next.js");
+    expect(heading.textContent).toBe("Deadline Keeper");
   });
 });

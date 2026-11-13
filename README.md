@@ -1,24 +1,9 @@
-# Modèle Next.js
+# Deadline Keeper
 
-Le point de départ des projets Next.js : Next.js 16, React 19, TypeScript,
-Tailwind CSS 4, des tests unitaires (Vitest), de bout en bout et d’accessibilité
-(Playwright et axe), et la CI du pipeline. Un projet naît de ce dépôt par
-« Use this template », puis suit la procédure d’ouverture.
+Vos échéances importantes au même endroit, avec un rappel avant chaque date limite.
 
-Les consignes des agents, la pile et les commandes sont dans [AGENTS.md](AGENTS.md),
-qui se complète à l’ouverture du projet.
-
-## Tenu à jour
-
-Dependabot propose chaque dimanche les mises à jour des paquets, les mineures
-regroupées en une pull request. La CI doit être verte ; bot-busquets donne son
-avis le lundi, dans le rapport de veille ; le propriétaire fusionne, une pull
-request à la fois. La version de Node (`.nvmrc`, `engines`, `@types/node`)
-change à la main, jamais par Dependabot.
-
-`dependabot.yml` ne sert qu’au modèle : il est retiré à l’ouverture d’un projet.
-`.github/workflows/ci.yml` est la copie du gabarit de CI du pipeline : il change
-avec lui, jamais seul.
+Ce dépôt est né du [modèle Next.js](https://github.com/Issam-Hadjal/modele-next). Les consignes des
+agents, la pile et les commandes sont dans [AGENTS.md](AGENTS.md).
 
 ## En local
 
@@ -34,3 +19,8 @@ npm test
 npx playwright install chromium   # une fois
 npm run build && npm run test:e2e
 ```
+
+## Mise en production
+
+Vercel déploie la branche `production` ; chaque autre branche et chaque pull request a
+sa préversion. `production` n’avance que lorsque le propriétaire y fusionne `main`.

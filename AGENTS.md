@@ -1,8 +1,13 @@
-# <Project name>
+# Deadline Keeper
 
 ## Purpose
-<Two or three sentences, written when the project opens: what it does, for whom,
-and what a finished change looks like.>
+Deadline Keeper helps individuals keep their important deadlines in one place
+(subscriptions, contracts, warranties, administrative procedures, renewals) and
+reminds them before each due date, so they avoid oversights, unwanted renewals
+and unexpected fees. The first version needs no account, no database and no paid
+API: data lives in the browser's localStorage, and reminders show in the
+interface while the app is open. A finished change makes one use work end to
+end, on mobile and desktop, without breaking the others.
 
 ## Stack
 - Runtime: Node.js 26, the version of the CI and of Vercel, pinned in `.nvmrc`
@@ -87,8 +92,20 @@ type-checks test files: a test that does not compile breaks the build.
   to work here.
 
 ## Verifying a change
-<Written when the project opens: which pages must render and what they must
-show; which flows to try.>
+- The dashboard (`/`) shows the four counters (upcoming, urgent, overdue,
+  completed) and the timeline of deadlines in date order; with no data, it
+  invites the user to add a first deadline.
+- Adding a deadline (title, description, category, date, frequency) shows it in
+  the list and on the dashboard; editing or deleting it updates both.
+- The category filter and the search narrow the list; clearing them restores it.
+- Data survives a page reload; a missing or corrupted localStorage entry starts
+  an empty state instead of an error.
+- Relative dates (urgent, overdue, days left) follow the browser's current date,
+  not the build date: opening the app the next day updates them.
+- Reminders 30, 7 or 1 day before a deadline appear in the interface; a reminder
+  exports as an `.ics` file that a calendar accepts.
+- Settings: the light, dark and system themes apply at once and persist; a JSON
+  export, imported back, restores the same data.
 - `npm test` covers the logic of every feature: valid input, edge cases, invalid
   input.
 - `npm run test:e2e` renders every page in a real browser and checks its

@@ -4,8 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Modèle Next.js",
-  description: "Point de départ des projets Next.js : à remplacer par l’objet du projet.",
+  title: "Deadline Keeper",
+  description: "Vos échéances importantes au même endroit, avec un rappel avant chaque date limite.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
