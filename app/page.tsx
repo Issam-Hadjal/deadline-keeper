@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Dashboard } from "./deadlines/dashboard";
 
 export default function Home() {
   return (
@@ -13,6 +14,10 @@ export default function Home() {
       >
         Mes échéances
       </Link>
+      {/* The counters and the timeline are the deadlines feature's own surface:
+          AGENTS.md lets lib/deadlines be imported only by app/deadlines/, so the
+          dashboard lives there and this page composes it. */}
+      <Dashboard />
     </main>
   );
 }

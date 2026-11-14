@@ -14,6 +14,14 @@ import { validateDeadline } from "@/lib/deadlines/validation";
 const FIELD =
   "w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-900";
 const BUTTON = "w-full rounded-md px-4 py-2 font-medium sm:w-auto";
+// iOS Safari gives input[type="date"] an intrinsic width wider than its column and
+// a native box of its own. appearance-none and min-w-0 bring it back inside the
+// column, the arbitrary variant left-aligns the value, and passing FIELD through
+// gives it the height classes of the text fields (px-3, py-2, text-base) instead
+// of a new height value. The control keeps its type and its native picker: no
+// readOnly, no disabled, no pointer-events-none, no overlay, no rule in
+// app/globals.css.
+const DATE_FIELD = `${FIELD} appearance-none min-w-0 [&::-webkit-date-and-time-value]:text-left`;
 
 type Values = Record<keyof DeadlineInput, string>;
 const EMPTY: Values = { title: "", description: "", category: "", date: "", frequency: "" };
@@ -105,7 +113,7 @@ export function DeadlineForm({ initial, onSubmit, onCancel }: Props) {
       </Field>
       {/* The value stays the AAAA-MM-JJ string of the control: no Date object. */}
       <Field id={id("date")} label="Date" error={errors.date}>
-        <input id={id("date")} type="date" className={FIELD} value={values.date} aria-invalid={invalid("date")}
+        <input id={id("date")} type="date" className={DATE_FIELD} value={values.date} aria-invalid={invalid("date")}
           aria-describedby={describedBy("date")} onChange={(event) => update("date", event.target.value)} />
       </Field>
       <div className="flex flex-col gap-2 sm:col-span-2 sm:flex-row">
