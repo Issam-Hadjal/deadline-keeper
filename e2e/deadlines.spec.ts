@@ -29,7 +29,7 @@ test("a deadline added by the form survives a reload and a confirmed deletion", 
   const deadline = page.getByRole("listitem").filter({ hasText: "Assurance habitation" });
   await expect(deadline).toHaveCount(1);
   await expect(deadline).toContainText("Contrats");
-  await expect(deadline).toContainText("31/03/2027");
+  await expect(deadline).toContainText("31 mars 2027");
   await expect(deadline).toContainText("Annuelle");
 
   // The form is the only writer; the key the page uses is read, never written.

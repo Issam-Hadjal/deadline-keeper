@@ -1,10 +1,18 @@
-// A date is an AAAA-MM-JJ string, formatted as the interface shows it: day,
-// month, year. The string is split, never parsed into a Date object, so no
-// timezone can move a deadline to the day before.
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+// A date is an AAAA-MM-JJ string, written as the interface shows it: 14 novembre
+// 2026. It is read by its components, in the local calendar: parsing the whole
+// string would read UTC and could name the day before, west of Greenwich.
+const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+const FRENCH_DATE = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
 
 export function formatFrenchDate(date: string): string {
-  if (!ISO_DATE.test(date)) return date;
-  const [year, month, day] = date.split("-");
-  return `${day}/${month}/${year}`;
+  const match = ISO_DATE.exec(date);
+  if (match === null) return date;
+  return FRENCH_DATE.format(
+    new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3])),
+  );
 }
