@@ -66,7 +66,7 @@ describe("DeadlinesPage", () => {
     expect(rows()).toHaveLength(1);
     expect(rows()[0]).toContain("Assurance habitation");
     expect(rows()[0]).toContain("Contrats");
-    expect(rows()[0]).toContain("14/11/2026");
+    expect(rows()[0]).toContain("14 novembre 2026");
     expect(rows()[0]).toContain("Annuelle");
     expect(stored()).toHaveLength(1);
     expect(localStorage.getItem("deadline-keeper:deadlines:v1")).not.toBeNull();
