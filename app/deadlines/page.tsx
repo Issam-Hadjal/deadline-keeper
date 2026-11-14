@@ -1,67 +1,26 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { filterDeadlines } from "@/lib/deadlines/filter";
 import { sortDeadlines } from "@/lib/deadlines/sort";
-import { parseDeadlines, STORAGE_KEY, writeDeadlines } from "@/lib/deadlines/storage";
 import type { Category, Deadline, DeadlineInput } from "@/lib/deadlines/types";
 import { DeadlineFilters } from "./deadline-filters";
 import { DeadlineForm } from "./deadline-form";
 import { DeadlineList } from "./deadline-list";
+import { useStoredDeadlines, writeStoredDeadlines } from "./use-stored-deadlines";
 
 function toInput({ title, description, category, date, frequency }: Deadline): DeadlineInput {
   return { title, description, category, date, frequency };
 }
 
-// The stored list belongs to the browser: the page subscribes to it instead of
-// copying it into a state from an effect. The snapshot is the raw string under
-// STORAGE_KEY, so React re-renders only on a real change.
-const listeners = new Set<() => void>();
-
-function readSnapshot(): string | null {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    // A browser that refuses storage starts an empty list instead of an error.
-    return null;
-  }
-}
-
-// The server knows nothing of the browser's storage: the prerender starts empty,
-// then the mounted page reads what the browser kept.
-function readServerSnapshot(): string | null {
-  return null;
-}
-
-function subscribe(listener: () => void): () => void {
-  listeners.add(listener);
-  // Another tab's write arrives as a "storage" event; this page's own writes fire
-  // none, so notifyListeners tells the page itself.
-  window.addEventListener("storage", listener);
-  return () => {
-    listeners.delete(listener);
-    window.removeEventListener("storage", listener);
-  };
-}
-
-function notifyListeners(): void {
-  for (const listener of listeners) listener();
-}
-
-function writeSnapshot(deadlines: Deadline[]): void {
-  writeDeadlines(window.localStorage, deadlines);
-  notifyListeners();
-}
-
 export default function DeadlinesPage() {
-  const raw = useSyncExternalStore(subscribe, readSnapshot, readServerSnapshot);
-  const deadlines = useMemo(() => parseDeadlines(raw), [raw]);
+  const deadlines = useStoredDeadlines();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [category, setCategory] = useState<Category | "Toutes">("Toutes");
   const [query, setQuery] = useState("");
 
   function persist(next: Deadline[]) {
-    writeSnapshot(next);
+    writeStoredDeadlines(next);
   }
 
   function add(input: DeadlineInput) {
