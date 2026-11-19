@@ -9,7 +9,7 @@ import {
   type DeadlineBucket,
 } from "@/lib/deadlines";
 import { sortDeadlines } from "@/lib/deadlines/sort";
-import { useToday } from "@/lib/deadlines/use-today";
+import { useToday } from "./use-today";
 import { useStoredDeadlines } from "./use-stored-deadlines";
 
 // The four counters, in the order the dashboard shows them. The label is the
