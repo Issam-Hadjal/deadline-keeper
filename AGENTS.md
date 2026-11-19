@@ -71,7 +71,7 @@ type-checks test files: a test that does not compile breaks the build.
   browser APIs are needed, as low in the tree as possible.
 - Cache Components is on, so every page is prerendered at build time. Never
   read the clock or randomness during render, not even in a Client Component
-  `Date.now()`, `new Date()`, `Math.random()`, `crypto.randomUUID()`):
+  (`Date.now()`, `new Date()`, `Math.random()`, `crypto.randomUUID()`):
   otherwise `next build` fails. Read them in an event handler, or subscribe to
   them with `useSyncExternalStore`, whose server snapshot is a fixed value.
 - Browser state — the clock, `localStorage`, `matchMedia` — reaches a component
@@ -84,7 +84,7 @@ type-checks test files: a test that does not compile breaks the build.
 - `proxy.ts`, not `middleware.ts`. Images through `next/image`.
 - Tailwind is configured in CSS, in `app/globals.css`: there is no
   `tailwind.config.js`.
-- A date field `<input type="date">`) adds `appearance-none min-w-0
+- A date field (`<input type="date">`) adds `appearance-none min-w-0
   [&::-webkit-date-and-time-value]:text-left` to the classes of the other
   fields: Safari on iPhone otherwise draws it wider than its column, and the
   whole page scrolls sideways. It keeps its type and its native picker.
